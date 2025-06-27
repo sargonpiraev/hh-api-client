@@ -1,8 +1,13 @@
 {
-  "name": "hh-api-client",
-  "version": "0.0.1",
+  "name": "@sargonpiraev/hh-api-client",
+  "version": "0.1.0",
   "description": "",
+  "main": "./build/index.js",
+  "types": "./build/generated/types.gen.ts",
   "type": "module",
+  "files": [
+    "build"
+  ],
   "scripts": {
     "test": "jest --passWithNoTests --coverage",
     "dev": "tsx watch ./src/index.ts",
@@ -14,12 +19,15 @@
     "prepare": "husky",
     "commitlint": "commitlint --edit",
     "typecheck": "tsc --noEmit",
-    "audit": "npm audit"
+    "audit": "npm audit",
+    "openapi-ts": "npx @hey-api/openapi-ts",
+    "prebuild": "npm run openapi-ts"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@eslint/js": "^9.26.0",
+    "@hey-api/openapi-ts": "^0.77.0",
     "@semantic-release/gitlab": "^13.2.4",
     "@types/jest": "^30.0.0",
     "@types/node": "^22.15.33",
@@ -39,12 +47,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "types": "./build/index.d.ts",
-  "main": "./build/index.js",
-  "files": [
-    "build"
-  ],
   "dependencies": {
+    "@hey-api/client-axios": "^0.9.1",
     "axios": "^1.10.0"
   }
 }

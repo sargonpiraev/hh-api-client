@@ -3,3 +3,6 @@ build
 coverage
 junit.xml
 .DS_Store
+
+# Generated API client code (generated during CI/CD build)
+src/generated/

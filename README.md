@@ -1,344 +1,276 @@
 # HeadHunter API Client
 
-API-клиент для работы с HeadHunter API, специально разработанный для получения справочной информации. Построен на TypeScript с использованием Axios.
+A TypeScript client for the HeadHunter API, generated from the official OpenAPI specification.
 
-## Установка
+## Features
+
+- 🔥 **TypeScript first** - Full type safety with generated types
+- 🚀 **Modern SDK** - Built with `@hey-api/openapi-ts`
+- 📝 **Complete API coverage** - All HeadHunter API endpoints
+- 🛡️ **Built-in validation** - Request/response validation
+- 🎯 **Tree-shakeable** - Import only what you need
+- 📚 **Well documented** - JSDoc comments for all methods
+
+## Installation
 
 ```bash
 npm install hh-api-client
 ```
 
-## Быстрый старт
+## Quick Start
 
 ```typescript
-import { HeadHunterClient } from 'hh-api-client';
+import { 
+  createHeadHunterClient,
+  getVacancies,
+  getAreas,
+  type GetVacanciesData
+} from 'hh-api-client';
 
-// Создание экземпляра клиента
-const client = new HeadHunterClient();
+// Create a configured client
+const client = createHeadHunterClient({
+  userAgent: 'MyApp/1.0.0 (contact@example.com)',
+  accessToken: 'your-access-token' // optional
+});
 
-// Получение списка регионов
-const areas = await client.getAreas();
-console.log('Регионы:', areas);
+// Search for vacancies
+const searchParams: GetVacanciesData = {
+  query: {
+    text: 'JavaScript developer',
+    area: '1', // Moscow
+    per_page: 50
+  }
+};
 
-// Получение профессиональных ролей
-const roles = await client.getProfessionalRoles();
-console.log('Профессиональные роли:', roles);
+const vacancies = await getVacancies({ 
+  client,
+  ...searchParams 
+});
+
+console.log(`Found ${vacancies.data.found} vacancies`);
+
+// Get dictionaries
+const areas = await getAreas({ client });
+console.log('Available areas:', areas.data);
 ```
 
-## Конфигурация
+## Usage Examples
 
-Вы можете настроить клиент при создании:
+### Search Vacancies
 
 ```typescript
-const client = new HeadHunterClient({
-  baseURL: 'https://api.hh.ru',           // Базовый URL API (по умолчанию)
-  timeout: 10000,                         // Таймаут запросов в мс (по умолчанию)
-  userAgent: 'MyApp/1.0.0 (email@example.com)' // User-Agent заголовок
+import { getVacancies, type GetVacanciesData } from 'hh-api-client';
+
+const searchParams: GetVacanciesData = {
+  query: {
+    text: 'Frontend Developer',
+    area: '1', // Moscow
+    professional_role: '96', // Developer role
+    experience: 'between1And3',
+    employment: 'full',
+    schedule: 'remote',
+    salary_from: 100000,
+    currency: 'RUR',
+    only_with_salary: true
+  }
+};
+
+const result = await getVacancies({ client, ...searchParams });
+```
+
+### Get Vacancy Details
+
+```typescript
+import { getVacancy } from 'hh-api-client';
+
+const vacancy = await getVacancy({
+  client,
+  path: { vacancy_id: '12345' }
+});
+
+console.log(vacancy.data.name);
+console.log(vacancy.data.description);
+```
+
+### Apply to Vacancy
+
+```typescript
+import { applyToVacancy } from 'hh-api-client';
+
+await applyToVacancy({
+  client,
+  path: { vacancy_id: '12345' },
+  body: {
+    resume_id: 'resume-id',
+    message: 'I am interested in this position...'
+  }
 });
 ```
 
-## Доступные методы
-
-### Регионы
-
-#### `getAreas(): Promise<Area[]>`
-Получение полного списка регионов с иерархической структурой.
+### Work with Dictionaries
 
 ```typescript
-const areas = await client.getAreas();
-// Вернет массив регионов с вложенными областями
+import { 
+  getAreas,
+  getIndustries,
+  getSkills,
+  getProfessionalRolesDictionary 
+} from 'hh-api-client';
+
+// Get all areas (cities/regions)
+const areas = await getAreas({ client });
+
+// Get industries
+const industries = await getIndustries({ client });
+
+// Get skills
+const skills = await getSkills({ client });
+
+// Get professional roles
+const roles = await getProfessionalRolesDictionary({ client });
 ```
 
-#### `getArea(areaId: string): Promise<Area>`
-Получение информации о конкретном регионе.
+### User Information
 
 ```typescript
-const moscow = await client.getArea('1'); // Москва
+import { getCurrentUserInfo, editCurrentUserInfo } from 'hh-api-client';
+
+// Get current user info
+const user = await getCurrentUserInfo({ client });
+
+// Update user info
+await editCurrentUserInfo({
+  client,
+  body: {
+    first_name: 'John',
+    last_name: 'Doe',
+    email: 'john.doe@example.com'
+  }
+});
 ```
 
-### Профессиональные роли
+## Configuration
 
-#### `getProfessionalRoles(): Promise<ProfessionalRole[]>`
-Получение списка всех профессиональных ролей.
+### Required User-Agent
+
+HeadHunter API requires a specific User-Agent format:
+
+```
+ApplicationName/Version (contact@example.com)
+```
+
+Example:
+```typescript
+const client = createHeadHunterClient({
+  userAgent: 'JobSearchApp/1.0.0 (support@jobsearch.com)'
+});
+```
+
+### Authentication
+
+For protected endpoints, provide an access token:
 
 ```typescript
-const roles = await client.getProfessionalRoles();
+const client = createHeadHunterClient({
+  userAgent: 'MyApp/1.0.0 (contact@example.com)',
+  accessToken: 'your-oauth-token'
+});
 ```
 
-### Станции метро
+### Custom Base URL
 
-#### `getMetroStations(cityId: string): Promise<MetroStation[]>`
-Получение станций метро для конкретного города.
+For testing or custom environments:
 
 ```typescript
-const moscowMetro = await client.getMetroStations('1'); // Метро Москвы
+const client = createHeadHunterClient({
+  userAgent: 'MyApp/1.0.0 (contact@example.com)',
+  baseURL: 'https://api.hh.ru' // default
+});
 ```
 
-#### `getAllMetroStations(): Promise<{ [cityId: string]: MetroStation[] }>`
-Получение всех станций метро по городам.
+## API Reference
+
+### Most Used Functions
+
+- `getVacancies()` - Search vacancies
+- `getVacancy()` - Get vacancy details
+- `getAreas()` - Get areas/cities
+- `getIndustries()` - Get industries
+- `getCurrentUserInfo()` - Get user info
+- `applyToVacancy()` - Apply to vacancy
+
+### All Available Functions
+
+The client exports all generated SDK functions. See the [HeadHunter API documentation](https://api.hh.ru/openapi/redoc) for complete reference.
 
 ```typescript
-const allMetro = await client.getAllMetroStations();
+// Import everything
+import * as HHApi from 'hh-api-client';
+
+// Or import specific functions
+import { 
+  getVacancies,
+  getNegotiations,
+  createResume,
+  // ... etc
+} from 'hh-api-client';
 ```
 
-### Языки
+## TypeScript Support
 
-#### `getLanguages(): Promise<Language[]>`
-Получение справочника языков.
+Full TypeScript support with generated types:
 
 ```typescript
-const languages = await client.getLanguages();
+import type { 
+  GetVacanciesData,
+  GetVacanciesResponses,
+  Vacancy,
+  Area,
+  Industry
+} from 'hh-api-client';
+
+const handleVacancy = (vacancy: Vacancy) => {
+  console.log(vacancy.name);
+  console.log(vacancy.salary?.from);
+};
 ```
 
-### Отрасли
-
-#### `getIndustries(): Promise<Industry[]>`
-Получение справочника отраслей компаний.
-
-```typescript
-const industries = await client.getIndustries();
-```
-
-### Учебные заведения
-
-#### `getEducationalInstitutions(areaId?: string, text?: string): Promise<EducationalInstitution[]>`
-Поиск учебных заведений с возможностью фильтрации по региону и тексту.
-
-```typescript
-// Все учебные заведения
-const allInstitutions = await client.getEducationalInstitutions();
-
-// Учебные заведения в Москве
-const moscowInstitutions = await client.getEducationalInstitutions('1');
-
-// Поиск по названию
-const mguInstitutions = await client.getEducationalInstitutions(undefined, 'МГУ');
-```
-
-#### `getFaculties(institutionId: string): Promise<Faculty[]>`
-Получение факультетов конкретного учебного заведения.
-
-```typescript
-const faculties = await client.getFaculties('39420');
-```
-
-### Навыки
-
-#### `getSkills(): Promise<Skill[]>`
-Получение справочника ключевых навыков.
-
-```typescript
-const skills = await client.getSkills();
-```
-
-### Справочники
-
-#### `getDictionaries(): Promise<Dictionary>`
-Получение всех справочников одним запросом.
-
-```typescript
-const dictionaries = await client.getDictionaries();
-```
-
-#### Специализированные методы для справочников:
-
-- `getCurrencies(): Promise<DictionaryItem[]>` - валюты
-- `getEmploymentTypes(): Promise<DictionaryItem[]>` - типы занятости  
-- `getScheduleTypes(): Promise<DictionaryItem[]>` - графики работы
-- `getExperienceTypes(): Promise<DictionaryItem[]>` - опыт работы
-- `getEducationLevels(): Promise<DictionaryItem[]>` - уровни образования
-
-```typescript
-const currencies = await client.getCurrencies();
-const employmentTypes = await client.getEmploymentTypes();
-const schedules = await client.getScheduleTypes();
-```
-
-### Утилитарные методы
-
-#### `get<T>(endpoint: string, params?: Record<string, any>): Promise<T>`
-Выполнение произвольного GET запроса к API.
-
-```typescript
-const customData = await client.get('/custom-endpoint', { param1: 'value1' });
-```
-
-#### `getApiStatus(): Promise<any>`
-Получение информации о статусе API.
-
-```typescript
-const status = await client.getApiStatus();
-```
-
-## Типы данных
-
-Клиент предоставляет TypeScript типы для всех ответов API:
-
-```typescript
-interface Area {
-  id: string;
-  name: string;
-  parent_id?: string;
-  areas?: Area[];
-}
-
-interface ProfessionalRole {
-  id: string;
-  name: string;
-}
-
-interface MetroStation {
-  id: string;
-  name: string;
-  lat: number;
-  lng: number;
-  order: number;
-  line: MetroLine;
-}
-
-interface Language {
-  id: string;
-  name: string;
-}
-
-interface Industry {
-  id: string;
-  name: string;
-  industries?: Industry[];
-}
-
-interface EducationalInstitution {
-  id: string;
-  name: string;
-  acronym?: string;
-  site?: string;
-  area: Area;
-}
-
-interface Skill {
-  id: string;
-  name: string;
-}
-
-interface DictionaryItem {
-  id: string;
-  name: string;
-}
-```
-
-## Примеры использования
-
-### Поиск IT-компаний в Москве
-
-```typescript
-import { HeadHunterClient } from 'hh-api-client';
-
-const client = new HeadHunterClient();
-
-async function findITInMoscow() {
-  // Получаем все отрасли
-  const industries = await client.getIndustries();
-  
-  // Ищем IT отрасль
-  const itIndustry = industries.find(industry => 
-    industry.name.toLowerCase().includes('информационные технологии')
-  );
-  
-  console.log('IT отрасль:', itIndustry);
-  
-  // Получаем информацию о Москве
-  const moscow = await client.getArea('1');
-  console.log('Регион:', moscow.name);
-}
-```
-
-### Получение образовательной информации
-
-```typescript
-async function getEducationInfo() {
-  // Получаем учебные заведения в Санкт-Петербурге
-  const spbInstitutions = await client.getEducationalInstitutions('2');
-  
-  // Получаем уровни образования
-  const educationLevels = await client.getEducationLevels();
-  
-  console.log(`Учебных заведений в СПб: ${spbInstitutions.length}`);
-  console.log('Уровни образования:', educationLevels);
-}
-```
-
-### Работа с метро
-
-```typescript
-async function getMetroInfo() {
-  // Получаем все станции метро в Москве
-  const moscowMetro = await client.getMetroStations('1');
-  
-  // Группируем по линиям
-  const lineGroups = moscowMetro.reduce((acc, station) => {
-    const lineName = station.line.name;
-    if (!acc[lineName]) acc[lineName] = [];
-    acc[lineName].push(station);
-    return acc;
-  }, {} as Record<string, typeof moscowMetro>);
-  
-  console.log('Линии метро:', Object.keys(lineGroups));
-}
-```
-
-## Обработка ошибок
+## Error Handling
 
 ```typescript
 try {
-  const areas = await client.getAreas();
-  console.log('Регионы получены:', areas.length);
+  const result = await getVacancies({ client, query: { text: 'Developer' } });
+  console.log(result.data);
 } catch (error) {
-  if (error.response) {
-    // Ошибка ответа от сервера
-    console.error('Статус:', error.response.status);
-    console.error('Данные:', error.response.data);
-  } else if (error.request) {
-    // Запрос был отправлен, но ответ не получен
-    console.error('Нет ответа от сервера');
+  if (error.status === 400) {
+    console.error('Bad request:', error.data);
+  } else if (error.status === 403) {
+    console.error('Forbidden:', error.data);
   } else {
-    // Ошибка настройки запроса
-    console.error('Ошибка:', error.message);
+    console.error('Unexpected error:', error);
   }
 }
 ```
 
-## Ограничения
-
-- HeadHunter API имеет ограничения по количеству запросов в минуту
-- Рекомендуется указывать корректный User-Agent в конфигурации
-- Некоторые методы API могут требовать авторизации (в данном клиенте реализованы только публичные методы)
-
-## Документация HeadHunter API
-
-Полная документация доступна по адресу: https://github.com/hhru/api
-
-## Лицензия
-
-MIT
-
-## Разработка
+## Development
 
 ```bash
-# Установка зависимостей
+# Install dependencies
 npm install
 
-# Запуск в режиме разработки  
-npm run dev
+# Generate types from OpenAPI spec
+npm run openapi-ts
 
-# Сборка
+# Build
 npm run build
 
-# Линтинг
+# Test
+npm run test
+
+# Lint
 npm run lint
-
-# Форматирование
-npm run format
-
-# Тесты
-npm test
 ```
+
+## License
+
+MIT

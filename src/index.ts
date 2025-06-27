@@ -1,228 +1,133 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import type {
-  Area,
-  ProfessionalRole,
-  MetroStation,
-  Language,
-  Industry,
-  EducationalInstitution,
-  Faculty,
-  Skill,
-  Dictionary,
-  DictionaryItem,
-  HeadHunterClientConfig,
-} from './types.js';
+// HeadHunter API Client
+// Re-exports from generated SDK with organized structure
 
-// Экспортируем типы для удобства использования
+// === Core Client & Configuration ===
+export { client } from './generated/client.gen.js';
+export { createClient } from './generated/client/index.js';
+export type { Client, Options } from './generated/client/index.js';
+
+// === Most Used Functions ===
+// Vacancy search and management
+export {
+  getVacancies,
+  getVacancy,
+  getFavoriteVacancies,
+  addVacancyToFavorite,
+  deleteVacancyFromFavorite,
+  getVacanciesSimilarToResume,
+  applyToVacancy,
+} from './generated/index.js';
+
+// Dictionaries and references
+export {
+  getDictionaries,
+  getAreas,
+  getIndustries,
+  getLanguages,
+  getSkills,
+  getProfessionalRolesDictionary,
+  getMetroStations,
+  getMetroStationsInCity,
+} from './generated/index.js';
+
+// User and authentication
+export {
+  getCurrentUserInfo,
+  editCurrentUserInfo,
+  authorize,
+  invalidateToken,
+} from './generated/index.js';
+
+// Resume management
+export {
+  getMineResumes,
+  getResume,
+  createResume,
+  editResume,
+  deleteResume,
+  publishResume,
+  searchForResumes,
+  getResumeConditions,
+} from './generated/index.js';
+
+// Negotiations
+export {
+  getNegotiations,
+  getNegotiationItem,
+  getNegotiationMessages,
+  sendNegotiationMessage,
+  changeNegotiationAction,
+} from './generated/index.js';
+
+// === All Types ===
 export type {
-  Area,
-  ProfessionalRole,
-  MetroStation,
-  MetroLine,
-  Language,
-  Industry,
-  EducationalInstitution,
-  Faculty,
-  Skill,
-  Dictionary,
-  DictionaryItem,
-  HeadHunterClientConfig,
-} from './types.js';
+  // Vacancy types
+  GetVacanciesData,
+  GetVacanciesResponses,
+  GetVacancyData,
+  GetVacancyResponses,
+  ApplyToVacancyData,
+  ApplyToVacancyResponses,
+  
+  // Dictionary types
+  GetDictionariesResponses,
+  GetAreasResponses,
+  GetIndustriesResponses,
+  GetLanguagesResponses,
+  GetSkillsResponses,
+  
+  // User types
+  GetCurrentUserInfoResponses,
+  AuthorizeData,
+  AuthorizeResponses,
+  
+  // Resume types
+  GetMineResumesResponses,
+  GetResumeData,
+  GetResumeResponses,
+  CreateResumeData,
+  CreateResumeResponses,
+  EditResumeData,
+  EditResumeResponses,
+  SearchForResumesData,
+  SearchForResumesResponses,
+  
+  // Negotiation types
+  GetNegotiationsData,
+  GetNegotiationsResponses,
+  GetNegotiationItemData,
+  GetNegotiationItemResponses,
+  SendNegotiationMessageData,
+  SendNegotiationMessageResponses,
+  ChangeNegotiationActionData,
+  ChangeNegotiationActionResponses,
+} from './generated/index.js';
 
-// Основной класс HeadHunter API клиента
-export class HeadHunterClient {
-  private client: AxiosInstance;
+// === All Functions (for advanced usage) ===
+export * from './generated/index.js';
 
-  constructor(config: HeadHunterClientConfig = {}) {
-    this.client = axios.create({
-      baseURL: config.baseURL || 'https://api.hh.ru',
-      timeout: config.timeout || 10000,
-      headers: {
-        'User-Agent': config.userAgent || 'HH-API-Client/1.0.0',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    });
-  }
+// === Helper Configuration ===
+import { createClient } from './generated/client/index.js';
 
-  // СПРАВОЧНИКИ (DICTIONARIES)
-
-  /**
-   * Получение справочника регионов
-   * @returns Список регионов
-   */
-  async getAreas(): Promise<Area[]> {
-    const response: AxiosResponse<Area[]> = await this.client.get('/areas');
-    return response.data;
-  }
-
-  /**
-   * Получение конкретного региона по ID
-   * @param areaId ID региона
-   * @returns Информация о регионе
-   */
-  async getArea(areaId: string): Promise<Area> {
-    const response: AxiosResponse<Area> = await this.client.get(`/areas/${areaId}`);
-    return response.data;
-  }
-
-  /**
-   * Получение справочника профессиональных ролей
-   * @returns Список профессиональных ролей
-   */
-  async getProfessionalRoles(): Promise<ProfessionalRole[]> {
-    const response: AxiosResponse<ProfessionalRole[]> = await this.client.get('/professional_roles');
-    return response.data;
-  }
-
-  /**
-   * Получение станций метро для указанного города
-   * @param cityId ID города
-   * @returns Список станций метро
-   */
-  async getMetroStations(cityId: string): Promise<MetroStation[]> {
-    const response: AxiosResponse<MetroStation[]> = await this.client.get(`/metro/${cityId}`);
-    return response.data;
-  }
-
-  /**
-   * Получение всех станций метро
-   * @returns Объект со станциями метро по городам
-   */
-  async getAllMetroStations(): Promise<{ [cityId: string]: MetroStation[] }> {
-    const response: AxiosResponse<{ [cityId: string]: MetroStation[] }> = await this.client.get('/metro');
-    return response.data;
-  }
-
-  /**
-   * Получение справочника языков
-   * @returns Список языков
-   */
-  async getLanguages(): Promise<Language[]> {
-    const response: AxiosResponse<Language[]> = await this.client.get('/languages');
-    return response.data;
-  }
-
-  /**
-   * Получение справочника отраслей компаний
-   * @returns Список отраслей
-   */
-  async getIndustries(): Promise<Industry[]> {
-    const response: AxiosResponse<Industry[]> = await this.client.get('/industries');
-    return response.data;
-  }
-
-  /**
-   * Получение справочника учебных заведений
-   * @param areaId ID региона (опционально)
-   * @param text Текст для поиска (опционально)
-   * @returns Список учебных заведений
-   */
-  async getEducationalInstitutions(areaId?: string, text?: string): Promise<EducationalInstitution[]> {
-    const params = new URLSearchParams();
-    if (areaId) params.append('area', areaId);
-    if (text) params.append('text', text);
-    
-    const url = `/educational_institutions${params.toString() ? `?${params.toString()}` : ''}`;
-    const response: AxiosResponse<EducationalInstitution[]> = await this.client.get(url);
-    return response.data;
-  }
-
-  /**
-   * Получение факультетов учебного заведения
-   * @param institutionId ID учебного заведения
-   * @returns Список факультетов
-   */
-  async getFaculties(institutionId: string): Promise<Faculty[]> {
-    const response: AxiosResponse<Faculty[]> = await this.client.get(`/educational_institutions/${institutionId}/faculties`);
-    return response.data;
-  }
-
-  /**
-   * Получение справочника ключевых навыков
-   * @returns Список ключевых навыков
-   */
-  async getSkills(): Promise<Skill[]> {
-    const response: AxiosResponse<Skill[]> = await this.client.get('/skills');
-    return response.data;
-  }
-
-  /**
-   * Получение всех справочников
-   * @returns Объект со всеми справочниками
-   */
-  async getDictionaries(): Promise<Dictionary> {
-    const response: AxiosResponse<Dictionary> = await this.client.get('/dictionaries');
-    return response.data;
-  }
-
-  /**
-   * Получение справочника валют
-   * @returns Список валют
-   */
-  async getCurrencies(): Promise<DictionaryItem[]> {
-    const response: AxiosResponse<Dictionary> = await this.client.get('/dictionaries');
-    return response.data.currency || [];
-  }
-
-  /**
-   * Получение справочника типов занятости
-   * @returns Список типов занятости
-   */
-  async getEmploymentTypes(): Promise<DictionaryItem[]> {
-    const response: AxiosResponse<Dictionary> = await this.client.get('/dictionaries');
-    return response.data.employment || [];
-  }
-
-  /**
-   * Получение справочника графиков работы
-   * @returns Список графиков работы
-   */
-  async getScheduleTypes(): Promise<DictionaryItem[]> {
-    const response: AxiosResponse<Dictionary> = await this.client.get('/dictionaries');
-    return response.data.schedule || [];
-  }
-
-  /**
-   * Получение справочника опыта работы
-   * @returns Список вариантов опыта работы
-   */
-  async getExperienceTypes(): Promise<DictionaryItem[]> {
-    const response: AxiosResponse<Dictionary> = await this.client.get('/dictionaries');
-    return response.data.experience || [];
-  }
-
-  /**
-   * Получение справочника типов образования
-   * @returns Список типов образования
-   */
-  async getEducationLevels(): Promise<DictionaryItem[]> {
-    const response: AxiosResponse<Dictionary> = await this.client.get('/dictionaries');
-    return response.data.education_level || [];
-  }
-
-  // УТИЛИТАРНЫЕ МЕТОДЫ
-
-  /**
-   * Выполнение произвольного GET запроса к API
-   * @param endpoint Эндпоинт API
-   * @param params Параметры запроса
-   * @returns Ответ API
-   */
-  async get<T = any>(endpoint: string, params?: Record<string, any>): Promise<T> {
-    const response: AxiosResponse<T> = await this.client.get(endpoint, { params });
-    return response.data;
-  }
-
-  /**
-   * Получение информации о статусе API
-   * @returns Статус API
-   */
-  async getApiStatus(): Promise<any> {
-    const response: AxiosResponse<any> = await this.client.get('/');
-    return response.data;
-  }
+/**
+ * Create a pre-configured HeadHunter API client
+ * @param config Configuration options
+ * @returns Configured client instance
+ */
+export function createHeadHunterClient(config: {
+  userAgent: string;
+  accessToken?: string;
+  baseURL?: string;
+}) {
+  return createClient({
+    baseUrl: config.baseURL || 'https://api.hh.ru',
+    headers: {
+      'User-Agent': config.userAgent,
+      ...(config.accessToken && { 'Authorization': `Bearer ${config.accessToken}` }),
+    },
+  });
 }
 
-// Экспорт для удобного использования
-export default HeadHunterClient;
+// === Constants ===
+export const HH_API_BASE_URL = 'https://api.hh.ru';
+export const HH_REQUIRED_USER_AGENT_FORMAT = 'AppName/Version (contact@example.com)';
