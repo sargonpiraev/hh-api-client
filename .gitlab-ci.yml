@@ -52,6 +52,7 @@ test_build:
 test_type:
   stage: test
   script:
+    - npm run build
     - npm run typecheck
 
 test_lint:
