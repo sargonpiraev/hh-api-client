@@ -2,9 +2,9 @@
 // Re-exports from generated SDK with organized structure
 
 // === Core Client & Configuration ===
-export { client } from './generated/client.gen.js';
-export { createClient } from './generated/client/index.js';
-export type { Client, Options } from './generated/client/index.js';
+export { client } from './generated/client.gen.js'
+export { createClient } from './generated/client/index.js'
+export type { Client, Options } from './generated/client/index.js'
 
 // === Most Used Functions ===
 // Vacancy search and management
@@ -16,7 +16,7 @@ export {
   deleteVacancyFromFavorite,
   getVacanciesSimilarToResume,
   applyToVacancy,
-} from './generated/index.js';
+} from './generated/index.js'
 
 // Dictionaries and references
 export {
@@ -28,15 +28,10 @@ export {
   getProfessionalRolesDictionary,
   getMetroStations,
   getMetroStationsInCity,
-} from './generated/index.js';
+} from './generated/index.js'
 
 // User and authentication
-export {
-  getCurrentUserInfo,
-  editCurrentUserInfo,
-  authorize,
-  invalidateToken,
-} from './generated/index.js';
+export { getCurrentUserInfo, editCurrentUserInfo, authorize, invalidateToken } from './generated/index.js'
 
 // Resume management
 export {
@@ -48,7 +43,7 @@ export {
   publishResume,
   searchForResumes,
   getResumeConditions,
-} from './generated/index.js';
+} from './generated/index.js'
 
 // Negotiations
 export {
@@ -57,7 +52,7 @@ export {
   getNegotiationMessages,
   sendNegotiationMessage,
   changeNegotiationAction,
-} from './generated/index.js';
+} from './generated/index.js'
 
 // === All Types ===
 export type {
@@ -68,19 +63,19 @@ export type {
   GetVacancyResponses,
   ApplyToVacancyData,
   ApplyToVacancyResponses,
-  
+
   // Dictionary types
   GetDictionariesResponses,
   GetAreasResponses,
   GetIndustriesResponses,
   GetLanguagesResponses,
   GetSkillsResponses,
-  
+
   // User types
   GetCurrentUserInfoResponses,
   AuthorizeData,
   AuthorizeResponses,
-  
+
   // Resume types
   GetMineResumesResponses,
   GetResumeData,
@@ -91,7 +86,7 @@ export type {
   EditResumeResponses,
   SearchForResumesData,
   SearchForResumesResponses,
-  
+
   // Negotiation types
   GetNegotiationsData,
   GetNegotiationsResponses,
@@ -101,33 +96,29 @@ export type {
   SendNegotiationMessageResponses,
   ChangeNegotiationActionData,
   ChangeNegotiationActionResponses,
-} from './generated/index.js';
+} from './generated/index.js'
 
 // === All Functions (for advanced usage) ===
-export * from './generated/index.js';
+export * from './generated/index.js'
 
 // === Helper Configuration ===
-import { createClient } from './generated/client/index.js';
+import { createClient } from './generated/client/index.js'
 
 /**
  * Create a pre-configured HeadHunter API client
  * @param config Configuration options
  * @returns Configured client instance
  */
-export function createHeadHunterClient(config: {
-  userAgent: string;
-  accessToken?: string;
-  baseURL?: string;
-}) {
+export function createHeadHunterClient(config: { userAgent: string; accessToken?: string; baseURL?: string }) {
   return createClient({
     baseUrl: config.baseURL || 'https://api.hh.ru',
     headers: {
       'User-Agent': config.userAgent,
-      ...(config.accessToken && { 'Authorization': `Bearer ${config.accessToken}` }),
+      ...(config.accessToken && { Authorization: `Bearer ${config.accessToken}` }),
     },
-  });
+  })
 }
 
 // === Constants ===
-export const HH_API_BASE_URL = 'https://api.hh.ru';
-export const HH_REQUIRED_USER_AGENT_FORMAT = 'AppName/Version (contact@example.com)';
+export const HH_API_BASE_URL = 'https://api.hh.ru'
+export const HH_REQUIRED_USER_AGENT_FORMAT = 'AppName/Version (contact@example.com)'

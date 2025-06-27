@@ -1,4 +1,4 @@
-import { defineConfig, defaultPlugins } from '@hey-api/openapi-ts';
+import { defineConfig, defaultPlugins } from '@hey-api/openapi-ts'
 
 export default defineConfig({
   input: './headhunter-api-spec.yaml',
@@ -9,4 +9,4 @@ export default defineConfig({
       name: '@hey-api/sdk',
     },
   ],
-});
+})

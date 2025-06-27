@@ -8,12 +8,6 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    ignores: [
-      'node_modules/',
-      'build/',
-      'dist/',
-      'coverage/',
-      'src/generated/**',
-    ],
+    ignores: ['node_modules/', 'build/', 'dist/', 'coverage/', 'src/generated/**'],
   },
 ]

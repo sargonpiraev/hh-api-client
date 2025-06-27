@@ -2421,7 +2421,7 @@ components:
         first_name:
           max_length: 100
           min_length: 1
-          regexp: '^[ ]*[A-Z][a-z]*([ ʼ’''`-][A-Z][a-z]*)*[ ]*$'
+          regexp: "^[ ]*[A-Z][a-z]*([ ʼ’'`-][A-Z][a-z]*)*[ ]*$"
           required: true
         gender:
           required: true
@@ -2443,14 +2443,14 @@ components:
         last_name:
           max_length: 100
           min_length: 1
-          regexp: '^[ ]*[A-Z][a-z]*([ ʼ’''`-][A-Z][a-z]*)*[ ]*$'
+          regexp: "^[ ]*[A-Z][a-z]*([ ʼ’'`-][A-Z][a-z]*)*[ ]*$"
           required: true
         metro:
           required: false
         middle_name:
           max_length: 100
           min_length: 1
-          regexp: '^[ ]*[A-Z][a-z]*([ ʼ’''`-][A-Z][a-z]*)*[ ]*$'
+          regexp: "^[ ]*[A-Z][a-z]*([ ʼ’'`-][A-Z][a-z]*)*[ ]*$"
           required: false
         photo:
           required: false
@@ -5956,7 +5956,7 @@ components:
           first_name:
             max_length: 100
             min_length: 1
-            regexp: '^[ ]*[A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*([ ʼ’''`-][A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*)*[ ]*$'
+            regexp: "^[ ]*[A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*([ ʼ’'`-][A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*)*[ ]*$"
             required: true
           gender:
             required: true
@@ -5978,14 +5978,14 @@ components:
           last_name:
             max_length: 100
             min_length: 1
-            regexp: '^[ ]*[A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*([ ʼ’''`-][A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*)*[ ]*$'
+            regexp: "^[ ]*[A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*([ ʼ’'`-][A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*)*[ ]*$"
             required: true
           metro:
             required: false
           middle_name:
             max_length: 100
             min_length: 1
-            regexp: '^[ ]*[A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*([ ʼ’''`-][A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*|[ ʼ’''`-][a-zа-їўçəıǝğöşüәғқңөұүһіґ]+)*[ ]*$'
+            regexp: "^[ ]*[A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*([ ʼ’'`-][A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*|[ ʼ’'`-][a-zа-їўçəıǝğöşüәғқңөұүһіґ]+)*[ ]*$"
             required: false
           photo:
             required: false
@@ -6330,7 +6330,7 @@ components:
           first_name:
             max_length: 100
             min_length: 1
-            regexp: '^[ ]*[A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*([ ʼ’''`-][A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*)*[ ]*$'
+            regexp: "^[ ]*[A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*([ ʼ’'`-][A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*)*[ ]*$"
             required: true
           gender:
             required: true
@@ -6348,14 +6348,14 @@ components:
           last_name:
             max_length: 100
             min_length: 1
-            regexp: '^[ ]*[A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*([ ʼ’''`-][A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*)*[ ]*$'
+            regexp: "^[ ]*[A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*([ ʼ’'`-][A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*)*[ ]*$"
             required: true
           metro:
             required: false
           middle_name:
             max_length: 100
             min_length: 1
-            regexp: '^[ ]*[A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*([ ʼ’''`-][A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*|[ ʼ’''`-][a-zа-їўçəıǝğöşüәғқңөұүһіґ]+)*[ ]*$'
+            regexp: "^[ ]*[A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*([ ʼ’'`-][A-ZЁ-ЯÇƏĞİÖŞÜӘҒҚҢӨҰҮҺІҐ][a-zа-їўçəıǝğöşüәғқңөұүһіґ]*|[ ʼ’'`-][a-zа-їўçəıǝğöşüәғқңөұүһіґ]+)*[ ]*$"
             required: false
           preferred_work_all_areas:
             required: false
@@ -9815,7 +9815,7 @@ components:
           nullable: true
           type: number
         relations:
-          description: 'Если работодатель добавлен в черный список, то вернется `[''blacklisted'']`, иначе `[]`'
+          description: "Если работодатель добавлен в черный список, то вернется `['blacklisted']`, иначе `[]`"
           items:
             enum:
               - blacklisted
@@ -14466,7 +14466,7 @@ components:
         * `HH_PREMIUM` — 7 дней держится выше стандартных — вас заметит больше людей
         * `HH_ADVERTISING` — Продвижение бренда и отклики на вашем сайте
         * `HH_PAY_FOR_PERFORMANCE` — Вакансия с оплатой за контакты в откликах
-        * `ZP_CROSSPOSTING` — Вакансия на hh.ru с дополнительным размещением на zarplata.ru 
+        * `ZP_CROSSPOSTING` — Вакансия на hh.ru с дополнительным размещением на zarplata.ru
       title: Тип свойства вакансии
       type: string
     VacancyAreaOutput:
