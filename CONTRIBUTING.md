@@ -5,11 +5,13 @@ Thank you for your interest in contributing! This guide will help you get starte
 ## Development Setup
 
 **Prerequisites**
+
 - Node.js >= v18.0.0
 - npm >= 8.0.0
 - Access to HeadHunter API for testing
 
 **Setup**
+
 ```bash
 # Clone repository
 git clone https://github.com/sargonpiraev/hh-api-client.git
@@ -23,6 +25,7 @@ npm run dev
 ```
 
 **Build and Test**
+
 ```bash
 # Generate client from OpenAPI spec
 npm run openapi-ts
@@ -43,6 +46,7 @@ npm run typecheck
 ## Development Guidelines
 
 **Code Style**
+
 - Use TypeScript for all code
 - Follow existing code patterns and conventions
 - Add JSDoc comments for public APIs
@@ -50,18 +54,21 @@ npm run typecheck
 - Maintain tree-shakeable exports
 
 **Client Development**
+
 - Each API endpoint should have proper TypeScript types
 - Include comprehensive input validation
 - Provide clear error messages
 - Add examples to README for new functionality
 
 **OpenAPI Integration**
+
 - Never manually edit generated code
 - Update OpenAPI spec URL if API changes
 - Test type generation after spec updates
 - Ensure all endpoints are covered
 
 **Testing**
+
 - Write tests for new client functions
 - Test error handling scenarios
 - Ensure type safety in tests
@@ -76,6 +83,7 @@ npm run typecheck
 5. **Submit** a pull request with a clear description
 
 **Pull Request Requirements**
+
 - Clear, descriptive title
 - Description of changes and motivation
 - Tests pass and code is linted
@@ -109,4 +117,4 @@ When reporting bugs or requesting features:
 - 📧 Email: [sargonpiraev@gmail.com](mailto:sargonpiraev@gmail.com)
 - 🐛 Report issues on [GitHub](https://github.com/sargonpiraev/hh-api-client/issues)
 
-Thank you for contributing! 🎉 
+Thank you for contributing! 🎉

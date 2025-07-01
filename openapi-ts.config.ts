@@ -3,6 +3,6 @@ export default {
   output: './src/generated',
   client: '@hey-api/client-axios',
   types: {
-    enums: 'javascript'
-  }
-};
+    enums: 'javascript',
+  },
+}
