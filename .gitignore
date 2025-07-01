@@ -6,3 +6,5 @@ junit.xml
 
 # Generated API client code (generated during CI/CD build)
 src/generated/
+
+openapi-ts-error-*.log
