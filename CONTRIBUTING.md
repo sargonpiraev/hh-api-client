@@ -112,6 +112,28 @@ When reporting bugs or requesting features:
 - Focus on the technical aspects
 - Follow GitHub's community guidelines
 
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Generate types from OpenAPI spec
+npm run openapi-ts
+
+# Build the project
+npm run build
+
+# Run tests
+npm run test
+
+# Lint code
+npm run lint
+
+# Type checking
+npm run typecheck
+```
+
 ## Questions?
 
 - 📧 Email: [sargonpiraev@gmail.com](mailto:sargonpiraev@gmail.com)
