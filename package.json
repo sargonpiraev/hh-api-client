@@ -6,8 +6,32 @@
   "types": "./build/src/index.d.ts",
   "type": "module",
   "files": [
-    "build"
+    "build",
+    "README.md",
+    "LICENSE"
   ],
+  "keywords": [
+    "api-client",
+    "typescript",
+    "sdk",
+    "headhunter",
+    "hh",
+    "openapi",
+    "job-search",
+    "recruiting"
+  ],
+  "author": {
+    "name": "Sargon Piraev",
+    "email": "sargonpiraev@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sargonpiraev/hh-api-client.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "test": "jest --passWithNoTests --coverage",
     "dev": "tsx watch ./src/index.ts",

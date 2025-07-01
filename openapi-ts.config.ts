@@ -1,12 +1,8 @@
-import { defineConfig, defaultPlugins } from '@hey-api/openapi-ts'
-
-export default defineConfig({
+export default {
   input: './headhunter-api-spec.yaml',
   output: './src/generated',
-  plugins: [
-    ...defaultPlugins,
-    {
-      name: '@hey-api/sdk',
-    },
-  ],
-})
+  client: '@hey-api/client-axios',
+  types: {
+    enums: 'javascript'
+  }
+};
