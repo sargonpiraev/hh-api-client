@@ -2,8 +2,8 @@
   "name": "@sargonpiraev/hh-api-client",
   "version": "1.0.1",
   "description": "A TypeScript client for the HeadHunter API, generated from the official OpenAPI specification.",
-  "main": "./build/src/index.js",
-  "types": "./build/src/index.d.ts",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "type": "module",
   "files": [
     "build",
