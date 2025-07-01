@@ -6,14 +6,14 @@ export interface Config {
 }
 
 export class HhApiClient {
-  private client: typeof client;
+  private client: typeof client
 
   constructor(config: Config) {
-    this.client = client;
+    this.client = client
     this.client.setConfig({
       headers: { 'User-Agent': config.userAgent },
     })
   }
 
-  sdk = sdk;
-} 
+  sdk = sdk
+}
